@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Показать год</title>
+    <script>
+        function showYear() {
+            const currentYear = new Date().getFullYear();
+            alert(`Текущий год: ${currentYear}`);
+        }
+    </script>
+    <script src="calculate.js"></script>
+</head>
+
+<body>
+    <h1>Вычисление формулы f=(-t+sqrt(7+t))/8-abs(t)</h1>
+    
+    <form onsubmit="return false;">
+        <label for="tInput">Введите значение t:</label>
+        <input type="number" id="tInput">
+        <button onclick="calculateAndDisplay()">Вычислить</button>
+    </form>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculateAndDisplay() {
+            let t = parseFloat(document.getElementById('tInput').value);
+            let result = calculateF(t);
+
+            if (result !== undefined) {
+                document.getElementById('result').innerHTML = "<p>Значение f для t = " + t + ": " + result + "</p>";
+            } else {
+                document.getElementById('result').innerHTML = ""; // очищаем результат, если была ошибка
+            }
+        }
+    </script>
+</body>
+
+<body>
+    <button onclick="showYear()">Показать год</button>
+    <br><br>
+    <button onclick="displayName()">Показать имя и фамилию</button>
+    
+    <script>
+        function displayName() {
+            const fullName = "Смирнов Артём"; // Замените на ваши фамилию и имя
+            const n = 16;
+            const times = n + 5;
+            let output = '';
+
+            for (let i = 0; i < times; i++) {
+                output += fullName + "<br>";
+            }
+
+            document.body.innerHTML += "<div>" + output + "</div>";
+        }
+    </script>
+</body>
+
+<body>
+    <button onclick="operateArray()">Выполнить операцию</button>
+    <div id="output"></div>
+
+    <script>
+        function operateArray() {
+            // Создаем массив из 5 случайных целых чисел (от 1 до 100)
+            let array = [];
+            for (let i = 0; i < 5; i++) {
+                array.push(Math.floor(Math.random() * 100) + 1);
+            }
+
+            // Создаем копию исходного массива для сохранения
+            let originalArray = array.slice();
+
+            // Находим минимальный элемент в массиве
+            let minIndex = 0;
+            for (let i = 1; i < array.length; i++) {
+                if (array[i] < array[minIndex]) {
+                    minIndex = i;
+                }
+            }
+
+            // Переставляем минимальный элемент с последним в новом массиве
+            let changedArray = array.slice(); // создаем копию массива для изменений
+            if (minIndex !== array.length - 1) {
+                let temp = changedArray[minIndex];
+                changedArray[minIndex] = changedArray[array.length - 1];
+                changedArray[array.length - 1] = temp;
+            }
+
+            // Выводим исходный и измененный массив на страницу
+            let outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = "<p>Исходный массив: " + originalArray.join(", ") + "</p>";
+            outputDiv.innerHTML += "<p>Измененный массив: " + changedArray.join(", ") + "</p>";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        .hidden { display: none; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <div id="registration-form">
+        <h2>РЕГИСТРАЦИЯ</h2>
+        <form id="form">
+            <label for="account-number">№ лицевого счета *</label>
+            <input type="text" id="account-number" required>
+            <span id="account-number-error" class="error hidden">Поле обязательно для заполнения</span><br><br>
+
+            <label for="house-number">Номер дома *</label>
+            <input type="text" id="house-number" required>
+            <span id="house-number-error" class="error hidden">Поле обязательно для заполнения</span><br><br>
+
+            <label for="house-letter">Литера дома</label>
+            <input type="text" id="house-letter"><br><br>
+
+            <label for="apartment-number">Номер квартиры</label>
+            <input type="text" id="apartment-number"><br><br>
+
+            <label for="apartment-number-ext">Расширение номера квартиры</label>
+            <input type="text" id="apartment-number-ext"><br><br>
+
+            <label for="email">E-mail адрес *</label>
+            <input type="email" id="email" required>
+            <span id="email-error" class="error hidden">Поле обязательно для заполнения</span>
+            <span id="email-format-error" class="error hidden">E-mail должен содержать '@gmail.com'</span><br><br>
+
+            <label for="password">Пароль *</label>
+            <input type="password" id="password" required>
+            <span id="password-error" class="error hidden">Поле обязательно для заполнения</span>
+            <span id="password-length-error" class="error hidden">Пароль должен быть минимум 4 символа</span><br><br>
+
+            <input type="checkbox" id="accept-offers"> Желаю получать суппредложения по акциям компании<br>
+            <input type="checkbox" id="accept-terms" required> Принимаю условия обработки данных<br>
+            <span id="accept-terms-error" class="error hidden">Вы должны принять условия</span><br><br>
+
+            <button type="button" onclick="submitForm()">Зарегистрироваться</button>
+        </form>
+    </div>
+
+    <div id="product-page" class="hidden">
+        <h2>Фитнес-браслет HUAWEI Band 7, розовый</h2>
+        <img src="watches.png" alt="HUAWEI Band 7">
+            <p>156,13 BYN</p>
+        <button>В корзину</button>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Clear all previous errors
+            document.querySelectorAll('.error').forEach(el => el.classList.add('hidden'));
+
+            // Validate form
+            let isValid = true;
+
+            if (!document.getElementById('account-number').value) {
+                document.getElementById('account-number-error').classList.remove('hidden');
+                isValid = false;
+            }
+            if (!document.getElementById('house-number').value) {
+                document.getElementById('house-number-error').classList.remove('hidden');
+                isValid = false;
+            }
+            const email = document.getElementById('email').value;
+            if (!email) {
+                document.getElementById('email-error').classList.remove('hidden');
+                isValid = false;
+            } else if (!email.includes('@gmail.com')) {
+                document.getElementById('email-format-error').classList.remove('hidden');
+                isValid = false;
+            }
+            const password = document.getElementById('password').value;
+            if (!password) {
+                document.getElementById('password-error').classList.remove('hidden');
+                isValid = false;
+            } else if (password.length < 4) {
+                document.getElementById('password-length-error').classList.remove('hidden');
+                isValid = false;
+            }
+            if (!document.getElementById('accept-terms').checked) {
+                document.getElementById('accept-terms-error').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // If valid, show product page
+            if (isValid) {
+                document.getElementById('registration-form').classList.add('hidden');
+                document.getElementById('product-page').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
